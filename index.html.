@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Malla Curricular - Psicología</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #fff0f5;
+      color: #333;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #d6336c;
+    }
+
+    .year {
+      margin: 20px auto;
+      max-width: 800px;
+      background: #ffe6ef;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 10px;
+    }
+
+    li {
+      padding: 12px 18px;
+      margin: 6px 0;
+      background: #f8c8dc;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    li:hover {
+      background: #f3a6c5;
+    }
+
+    li.ticked {
+      text-decoration: line-through;
+      background: #e4c4cc;
+      color: #888;
+    }
+
+    .note {
+      font-size: 0.9em;
+      color: #888;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Malla Curricular - Psicología</h1>
+
+  <div class="year">
+    <h2>Primer año (CBC)</h2>
+    <ul>
+      <li>Semiólogia</li>
+      <li>Psicología</li>
+      <li>Biología</li>
+      <li>Matemática</li>
+      <li>Sociedad y Estado</li>
+      <li>Pensamiento científico</li>
+    </ul>
+    <div class="note">Necesitás tener estas 6 materias para pasar al segundo año</div>
+  </div>
+
+  <div class="year">
+    <h2>Segundo año</h2>
+    <ul>
+      <li>Psicología General</li>
+      <li>Estadística</li>
+      <li>Psicología Social</li>
+      <li>Psicoanálisis Freud</li>
+      <li>Psicología y Epistemología Genética</li>
+      <li>Neurofisiología</li>
+    </ul>
+  </div>
+
+  <div class="year">
+    <h2>Tercer año</h2>
+    <ul>
+      <li>Historia de la Psicología - Requisito: Psicología General</li>
+      <li>Metodología de la Investigación - Requisito: Psicología General y Estadística</li>
+      <li>Salud Pública y Mental - Requisito: Psicología Social</li>
+      <li>Teoría y Técnica de Grupos - Requisito: Psicología Social y Psicoanálisis Freud</li>
+      <li>Ps. Evolutiva Niñez - Requisito: Psicoanálisis Freud y Psicología y Epistemología Genética</li>
+      <li>Ps. Evolutiva Adolescencia (Correlativa con Niñez pero se pueden cursar de forma simultánea)</li>
+      <li>Psicopatología - Requisito: Neurofisiología</li>
+      <li>Requisito Idioma (Inglés o Francés) - Requisito: Psicología General y Psicoanálisis Freud</li>
+    </ul>
+  </div>
+
+  <div class="year">
+    <h2>Cuarto año</h2>
+    <ul>
+      <li>Ps. Ética y DD.HH - Requisito: Historia de la Psicología y Psicología General</li>
+      <li>Psicología Educacional - Requisito: Ps. Evolutiva Adolescencia</li>
+      <li>Psicología Institucional - Requisito: Salud Pública y Mental y Teoría y Técnica de Grupos</li>
+      <li>Psicología del Trabajo - Requisito: T. y T. de Explor. Diag. Psi. Mód 2</li>
+      <li>CP. y P. Clínica de Adultos - Requisito: T. y T. de Explor. Diag. Psi. Mód 2</li>
+      <li>Psicología Jurídica - Requisito: T. y T. de Explor. Diag. Psi. Mód 2</li>
+      <li>Psicoterapias - Requisito: T. y T. de Explor. Diag. Psi. Mód 2</li>
+    </ul>
+  </div>
+
+  <div class="year">
+    <h2>Quinto año</h2>
+    <ul>
+      <li>Práctica Profesional o de Investigación</li>
+      <li>Materia Electiva / Práctica</li>
+      <li>Materia Electiva</li>
+      <li>Materia Electiva</li>
+      <li>Requisito Tesis</li>
+    </ul>
+  </div>
+
+  <script>
+    const items = document.querySelectorAll('li');
+    const STORAGE_KEY = 'malla_psicologia_ticked';
+
+    // Cargar estado
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    items.forEach((item, i) => {
+      if (saved.includes(i)) {
+        item.classList.add('ticked');
+      }
+    });
+
+    // Guardar estado al clickear
+    items.forEach((item, i) => {
+      item.addEventListener('click', () => {
+        item.classList.toggle('ticked');
+        const newState = Array.from(items).reduce((arr, el, idx) => {
+          if (el.classList.contains('ticked')) arr.push(idx);
+          return arr;
+        }, []);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(newState));
+      });
+    });
+  </script>
+</body>
+</html>
